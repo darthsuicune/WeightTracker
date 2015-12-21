@@ -1,0 +1,25 @@
+<dlgdev.weighttracker.views.entry.NewWeightEntryView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context="dlgdev.weighttracker.views.entry.NewWeightEntryDialog">
+
+   <TextView
+        android:id="@+id/date_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+        android:drawableStart="@android:drawable/ic_menu_my_calendar"/>
+
+    <NumberPicker
+        android:id="@+id/value_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date_view"
+        android:layout_alignStart="@+id/date_view"
+        android:layout_alignLeft="@+id/date_view" />
+
+</dlgdev.weighttracker.views.entry.NewWeightEntryView>
