@@ -1,14 +1,11 @@
 package dlgdev.weighttracker.views.checkers;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -31,16 +28,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dlgdev.weighttracker.R;
 import dlgdev.weighttracker.di.DaggerWeightCheckerActivityComponent;
+import dlgdev.weighttracker.di.NavigationControllerModule;
 import dlgdev.weighttracker.di.WeightCheckerActivityModule;
 import dlgdev.weighttracker.domain.db.WeightCheckerProvider;
+import dlgdev.weighttracker.domain.models.checkers.WeightTrackerActions;
+import dlgdev.weighttracker.domain.models.checkers.WeightTrackerRequirements;
 import dlgdev.weighttracker.views.WeightEntryRecyclerView;
 import dlgdev.weighttracker.views.entry.NewWeightEntryDialog;
 
 public class WeightTrackerActivity extends AppCompatActivity
 		implements OnNavigationItemSelectedListener, WeightTrackerActions,
 		NewWeightEntryDialog.NewWeightEntryListener{
+
 	private static final int LOADER_ENTRIES = 1;
-	@Inject WeightTrackerController controller;
+
+	@Inject WeightTrackerRequirements controller;
+
 	@Bind(R.id.fab) FloatingActionButton fab;
 	@Bind(R.id.drawer_layout) DrawerLayout drawer;
 	@Bind(R.id.toolbar) Toolbar toolbar;
@@ -49,15 +52,11 @@ public class WeightTrackerActivity extends AppCompatActivity
 	@Bind(R.id.empty_entry_list) TextView emptyListView;
 	@Bind(R.id.weight_entry_list) WeightEntryRecyclerView recyclerListView;
 
-
-	public static Intent intentForUser(Activity activity, int userId) {
-		return new Intent(activity, WeightTrackerActivity.class);
-	}
-
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DaggerWeightCheckerActivityComponent.builder()
 				.weightCheckerActivityModule(new WeightCheckerActivityModule(this))
+				.navigationControllerModule(new NavigationControllerModule(this))
 				.build().inject(this);
 		setContentView(R.layout.activity_weight_checker);
 		ButterKnife.bind(this);
@@ -66,7 +65,7 @@ public class WeightTrackerActivity extends AppCompatActivity
 
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
 				R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.setDrawerListener(toggle);
+		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 
 		navigationView.setNavigationItemSelectedListener(this);
@@ -114,18 +113,14 @@ public class WeightTrackerActivity extends AppCompatActivity
 	}
 
 	@Override public void showList(Cursor data) {
-		this.emptyListView.setVisibility(View.GONE);
-		this.recyclerListView.setVisibility(View.VISIBLE);
+		emptyListView.setVisibility(View.GONE);
+		recyclerListView.setVisibility(View.VISIBLE);
 		recyclerListView.setItems(data);
 	}
 
 	@Override public void showEmptyList() {
-		this.emptyListView.setVisibility(View.VISIBLE);
-		this.recyclerListView.setVisibility(View.GONE);
-	}
-
-	@Override public FragmentManager fragmentManager() {
-		return getSupportFragmentManager();
+		emptyListView.setVisibility(View.VISIBLE);
+		recyclerListView.setVisibility(View.GONE);
 	}
 
 	@Override public void onNewEntrySelected(DateTime date, String weight) {

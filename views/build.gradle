@@ -3,7 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "dlgdev.weighttracker"
         minSdkVersion 15
@@ -32,31 +32,24 @@ android {
 
 dependencies {
     compile project(':domain')
-    def deps = rootProject.ext.viewDependencies
-    def testDeps = rootProject.ext.viewTestDependencies
+    def deps = rootProject.ext.runtime
+    def testDeps = rootProject.ext.test
     apt deps.daggerCompiler
     provided deps.javaxAnnotation
     compile deps.dagger
     compile deps.design
-    compile deps.support
-    compile deps.appCompat
     compile deps.recyclerView
     compile deps.butterKnife
     compile deps.annotations
 
     androidTestCompile testDeps.annotations
-    androidTestCompile testDeps.mockito
     androidTestCompile testDeps.dexmakerMockito
-    androidTestCompile testDeps.dexmaker
     androidTestCompile testDeps.dexmakerDx
-    androidTestCompile testDeps.espressoRunner
-    androidTestCompile testDeps.espressoRules
-    androidTestCompile testDeps.espressoCore
     androidTestCompile testDeps.espressoIntents
     androidTestCompile(testDeps.espressoContrib) {
-        exclude group: "com.android.support", module: "appcompat"
+        exclude group: "com.android.support", module: "appcompat-v7"
         exclude group: "com.android.support", module: "support-v4"
+        exclude group: "com.android.support", module: "design"
         exclude module: "recyclerview-v7"
     }
-    compile 'com.android.support:support-v4:23.1.1'
 }

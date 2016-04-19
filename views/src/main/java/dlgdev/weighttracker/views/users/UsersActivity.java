@@ -1,7 +1,6 @@
 package dlgdev.weighttracker.views.users;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -18,25 +17,29 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dlgdev.weighttracker.R;
 import dlgdev.weighttracker.di.DaggerUsersActivityComponent;
+import dlgdev.weighttracker.di.NavigationControllerModule;
 import dlgdev.weighttracker.di.UsersActivityModule;
 import dlgdev.weighttracker.domain.models.User;
-import dlgdev.weighttracker.views.checkers.WeightTrackerActivity;
+import dlgdev.weighttracker.domain.models.users.UsersActivityActions;
+import dlgdev.weighttracker.domain.models.users.UsersActivityController;
 
 public class UsersActivity extends AppCompatActivity implements UsersActivityActions {
 	private static final int LOADER_USERS = 1;
+
 	@Inject UsersActivityController controller;
+
 	@Bind(R.id.toolbar) Toolbar toolbar;
-	@Bind(R.id.fab) FloatingActionButton fab;
 
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DaggerUsersActivityComponent.builder()
 				.usersActivityModule(new UsersActivityModule(this))
+				.navigationControllerModule(new NavigationControllerModule(this))
 				.build().inject(this);
 
 		//TODO: Fix this when users are added.
-		if(this != null) {
-			startActivity(WeightTrackerActivity.intentForUser(this, 0));
+		if(true) {
+			controller.selectUser(null);
 			finish();
 		} else {
 			getSupportLoaderManager().restartLoader(LOADER_USERS, null, new UsersLoaderHelper());
@@ -75,7 +78,7 @@ public class UsersActivity extends AppCompatActivity implements UsersActivityAct
 		}
 
 		@Override public void onLoadFinished(Loader<List<User>> loader, List<User> data) {
-			controller.userListLoaded(data);
+			controller.loadUsers(data);
 		}
 
 		@Override public void onLoaderReset(Loader<List<User>> loader) {

@@ -78,7 +78,7 @@ public class NewWeightEntryDialog extends DialogFragment {
 	}
 
 	private void showPickerDialog(final NewWeightEntryView entryView) {
-		DialogBasedFragment.setWithDialog(new DatePickerDialog(getContext(),
+		DialogBasedFragment.createWithDialog(new DatePickerDialog(getContext(),
 				new DatePickerDialog.OnDateSetListener() {
 					@Override
 					public void onDateSet(DatePicker picker, int year, int month, int day) {

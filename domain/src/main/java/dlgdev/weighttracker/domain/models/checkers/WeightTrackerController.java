@@ -1,30 +1,31 @@
-package dlgdev.weighttracker.views.checkers;
+package dlgdev.weighttracker.domain.models.checkers;
 
 
 import android.database.Cursor;
-import android.support.v4.app.DialogFragment;
 
 import org.joda.time.DateTime;
 
 import javax.inject.Inject;
 
+import dlgdev.weighttracker.domain.NavigationController;
 import dlgdev.weighttracker.domain.WeightEntryRepository;
-import dlgdev.weighttracker.views.entry.NewWeightEntryDialog;
 
-public class WeightTrackerControllerImpl implements WeightTrackerController {
-	private static final String TAG_NEW_WEIGHT_DIALOG = "tag_new_weight_dialog";
+public class WeightTrackerController implements WeightTrackerRequirements {
+
 	WeightEntryRepository repository;
 	WeightTrackerActions actions;
+	NavigationController navigation;
 
-	@Inject public WeightTrackerControllerImpl(WeightTrackerActions actions,
-											   WeightEntryRepository repository) {
+	@Inject public WeightTrackerController(WeightTrackerActions actions,
+										   WeightEntryRepository repository,
+										   NavigationController navigation) {
 		this.actions = actions;
 		this.repository = repository;
+		this.navigation = navigation;
 	}
 
 	@Override public void requestNewEntry(double lastValue) {
-		DialogFragment fragment = NewWeightEntryDialog.newInstance(lastValue);
-		fragment.show(actions.fragmentManager(), TAG_NEW_WEIGHT_DIALOG);
+		navigation.requestEntryData(lastValue);
 	}
 
 	@Override public void loadEntries(Cursor data) {

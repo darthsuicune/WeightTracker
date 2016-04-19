@@ -1,4 +1,4 @@
-package dlgdev.weighttracker.views.users;
+package dlgdev.weighttracker.domain.models.users;
 
 import java.util.List;
 
@@ -6,7 +6,9 @@ import dlgdev.weighttracker.domain.models.User;
 
 public interface UsersActivityController {
 
-	void userListLoaded(List<User> data);
+	void loadUsers(List<User> data);
 
 	void addUser();
+
+	void selectUser(User user);
 }

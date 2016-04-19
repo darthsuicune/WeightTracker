@@ -1,17 +1,18 @@
 ext {
     //Runtime
-    supportLibraryVersion = "23.1.1"
-    daggerVersion = "2.0.2"
+    supportLibraryVersion = "23.3.0"
+    daggerVersion = "2.2"
     javaxAnnotationVersion = '1.0'
     butterKnifeVersion = "7.0.1"
     jodaTimeVersion = "2.3"
     schematicVersion = "0.6.4"
 
-    viewDependencies = [
+    runtime = [
+            schematicCompiler: "net.simonvt.schematic:schematic-compiler:${schematicVersion}",
             daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+            schematic: "net.simonvt.schematic:schematic:${schematicVersion}",
             dagger: "com.google.dagger:dagger:${daggerVersion}",
             design: "com.android.support:design:${supportLibraryVersion}",
-            support: "com.android.support:support-v4:${supportLibraryVersion}",
             appCompat: "com.android.support:appcompat-v7:${supportLibraryVersion}",
             annotations: "com.android.support:support-annotations:${supportLibraryVersion}",
             recyclerView: "com.android.support:recyclerview-v7:${supportLibraryVersion}",
@@ -20,24 +21,14 @@ ext {
             jodaTime: "joda-time:joda-time:${jodaTimeVersion}",
     ]
 
-    domainDependencies = [
-            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger: "com.google.dagger:dagger:${daggerVersion}",
-            annotations: "com.android.support:support-annotations:${supportLibraryVersion}",
-            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            schematicCompiler: "net.simonvt.schematic:schematic-compiler:${schematicVersion}",
-            schematic: "net.simonvt.schematic:schematic:${schematicVersion}",
-            jodaTime: "joda-time:joda-time:${jodaTimeVersion}",
-    ]
-
     //Testing
-    espressoLibraryVersion = "2.2.1"
-    espressoRunnerVersion = "0.4.1"
+    espressoLibraryVersion = "2.2.2"
+    espressoRunnerVersion = "0.5"
     dexmakerVersion = "1.4"
     mockitoVersion = "2.0.17-beta"
     jUnitVersion = "4.12"
 
-    viewTestDependencies = [
+    test = [
             mockito: "org.mockito:mockito-core:${mockitoVersion}",
             espressoRunner: "com.android.support.test:runner:${espressoRunnerVersion}",
             espressoRules: "com.android.support.test:rules:${espressoRunnerVersion}",
@@ -45,13 +36,8 @@ ext {
             espressoIntents: "com.android.support.test.espresso:espresso-intents:${espressoLibraryVersion}",
             espressoContrib: "com.android.support.test.espresso:espresso-contrib:${espressoLibraryVersion}",
             dexmakerMockito: "com.crittercism.dexmaker:dexmaker-mockito:${dexmakerVersion}",
-            dexmaker: "com.crittercism.dexmaker:dexmaker:${dexmakerVersion}",
             dexmakerDx: "com.crittercism.dexmaker:dexmaker-dx:${dexmakerVersion}",
             annotations: "com.android.support:support-annotations:${supportLibraryVersion}",
-    ]
-
-    domainTestDependencies = [
             junit: "junit:junit:${jUnitVersion}",
-            mockito: "org.mockito:mockito-core:${mockitoVersion}",
     ]
 }

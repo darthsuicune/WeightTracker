@@ -8,7 +8,7 @@ import android.support.v4.app.DialogFragment;
 public class DialogBasedFragment extends DialogFragment {
 	Dialog dialog;
 
-	public static DialogBasedFragment setWithDialog(Dialog dialog) {
+	public static DialogBasedFragment createWithDialog(Dialog dialog) {
 		DialogBasedFragment fragment = new DialogBasedFragment();
 		fragment.dialog = dialog;
 		return fragment;

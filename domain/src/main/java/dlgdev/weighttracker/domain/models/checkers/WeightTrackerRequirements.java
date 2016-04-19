@@ -1,10 +1,10 @@
-package dlgdev.weighttracker.views.checkers;
+package dlgdev.weighttracker.domain.models.checkers;
 
 import android.database.Cursor;
 
 import org.joda.time.DateTime;
 
-public interface WeightTrackerController {
+public interface WeightTrackerRequirements {
 
 	void requestNewEntry(double lastValue);
 
