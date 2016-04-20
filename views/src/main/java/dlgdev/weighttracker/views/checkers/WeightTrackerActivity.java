@@ -13,6 +13,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,22 +29,25 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dlgdev.weighttracker.R;
-import dlgdev.weighttracker.di.DaggerWeightCheckerActivityComponent;
-import dlgdev.weighttracker.di.NavigationControllerModule;
-import dlgdev.weighttracker.di.WeightCheckerActivityModule;
+import dlgdev.weighttracker.dagger.DaggerWeightCheckerActivityComponent;
+import dlgdev.weighttracker.dagger.DateFormatModule;
+import dlgdev.weighttracker.dagger.NavigationControllerModule;
+import dlgdev.weighttracker.dagger.WeightCheckerActivityComponent;
+import dlgdev.weighttracker.dagger.WeightCheckerActivityModule;
 import dlgdev.weighttracker.domain.db.WeightCheckerProvider;
 import dlgdev.weighttracker.domain.models.checkers.WeightTrackerActions;
 import dlgdev.weighttracker.domain.models.checkers.WeightTrackerRequirements;
-import dlgdev.weighttracker.views.WeightEntryRecyclerView;
 import dlgdev.weighttracker.views.entry.NewWeightEntryDialog;
+import dlgdev.weighttracker.views.entry.WeightEntryAdapter;
 
 public class WeightTrackerActivity extends AppCompatActivity
 		implements OnNavigationItemSelectedListener, WeightTrackerActions,
-		NewWeightEntryDialog.NewWeightEntryListener{
+		NewWeightEntryDialog.NewWeightEntryListener {
 
 	private static final int LOADER_ENTRIES = 1;
 
 	@Inject WeightTrackerRequirements controller;
+	@Inject WeightEntryAdapter adapter;
 
 	@Bind(R.id.fab) FloatingActionButton fab;
 	@Bind(R.id.drawer_layout) DrawerLayout drawer;
@@ -50,16 +55,21 @@ public class WeightTrackerActivity extends AppCompatActivity
 	@Bind(R.id.nav_view) NavigationView navigationView;
 
 	@Bind(R.id.empty_entry_list) TextView emptyListView;
-	@Bind(R.id.weight_entry_list) WeightEntryRecyclerView recyclerListView;
+	@Bind(R.id.weight_entry_list) RecyclerView recyclerListView;
 
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DaggerWeightCheckerActivityComponent.builder()
+		WeightCheckerActivityComponent component = DaggerWeightCheckerActivityComponent.builder()
 				.weightCheckerActivityModule(new WeightCheckerActivityModule(this))
 				.navigationControllerModule(new NavigationControllerModule(this))
-				.build().inject(this);
+				.dateFormatModule(new DateFormatModule(this))
+				.build();
+		component.inject(this);
 		setContentView(R.layout.activity_weight_checker);
 		ButterKnife.bind(this);
+
+		recyclerListView.setAdapter(adapter);
+		recyclerListView.setLayoutManager(new LinearLayoutManager(this));
 
 		setSupportActionBar(toolbar);
 
@@ -89,7 +99,7 @@ public class WeightTrackerActivity extends AppCompatActivity
 	@Override public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will automatically handle clicks on
 		// the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 			case R.id.action_settings:
 				return true;
 			default:
@@ -99,7 +109,7 @@ public class WeightTrackerActivity extends AppCompatActivity
 
 	@Override public boolean onNavigationItemSelected(MenuItem item) {
 		// Handle navigation view item clicks here.
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 			case R.id.nav_share:
 			default:
 		}
@@ -109,13 +119,12 @@ public class WeightTrackerActivity extends AppCompatActivity
 	}
 
 	@OnClick(R.id.fab) public void clickOnFab() {
-		controller.requestNewEntry(recyclerListView.getLast());
+		controller.requestNewEntry();
 	}
 
-	@Override public void showList(Cursor data) {
+	@Override public void showList() {
 		emptyListView.setVisibility(View.GONE);
 		recyclerListView.setVisibility(View.VISIBLE);
-		recyclerListView.setItems(data);
 	}
 
 	@Override public void showEmptyList() {
@@ -134,6 +143,7 @@ public class WeightTrackerActivity extends AppCompatActivity
 		}
 
 		@Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+			adapter.setData(data);
 			controller.loadEntries(data);
 		}
 

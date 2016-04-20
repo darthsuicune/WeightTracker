@@ -1,4 +1,4 @@
-package dlgdev.weighttracker.di;
+package dlgdev.weighttracker.dagger;
 
 import dagger.Module;
 import dagger.Provides;

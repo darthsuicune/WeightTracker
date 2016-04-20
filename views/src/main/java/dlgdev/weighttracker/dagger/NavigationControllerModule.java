@@ -1,6 +1,5 @@
-package dlgdev.weighttracker.di;
+package dlgdev.weighttracker.dagger;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import dagger.Module;
@@ -20,7 +19,7 @@ public class NavigationControllerModule {
 		return navigation;
 	}
 
-	@Provides Context provideContext() {
+	@Provides AppCompatActivity provideActivity() {
 		return activity;
 	}
 }

@@ -24,6 +24,10 @@ public class WeightEntryRepositoryImpl implements WeightEntryRepository {
 		new InsertEntryTask(date, weight).execute();
 	}
 
+	@Override public double getLast() {
+		return 0.0;
+	}
+
 	private class InsertEntryTask extends AsyncTask<Void, Void, Void> {
 		private final DateTime date;
 		private final String weight;

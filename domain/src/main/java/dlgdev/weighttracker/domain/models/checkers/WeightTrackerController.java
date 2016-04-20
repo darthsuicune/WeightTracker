@@ -24,13 +24,13 @@ public class WeightTrackerController implements WeightTrackerRequirements {
 		this.navigation = navigation;
 	}
 
-	@Override public void requestNewEntry(double lastValue) {
-		navigation.requestEntryData(lastValue);
+	@Override public void requestNewEntry() {
+		navigation.requestEntryData(repository.getLast());
 	}
 
 	@Override public void loadEntries(Cursor data) {
 		if(data != null && data.getCount() > 0) {
-			actions.showList(data);
+			actions.showList();
 		} else {
 			actions.showEmptyList();
 		}

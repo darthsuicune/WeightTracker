@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 
 public interface WeightTrackerRequirements {
 
-	void requestNewEntry(double lastValue);
+	void requestNewEntry();
 
 	void loadEntries(Cursor data);
 

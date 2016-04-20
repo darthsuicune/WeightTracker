@@ -1,4 +1,4 @@
-package dlgdev.weighttracker.di;
+package dlgdev.weighttracker.dagger;
 
 import android.content.ContentResolver;
 
@@ -7,9 +7,9 @@ import dagger.Provides;
 import dlgdev.weighttracker.domain.WeightEntryRepository;
 import dlgdev.weighttracker.domain.WeightEntryRepositoryImpl;
 import dlgdev.weighttracker.domain.models.checkers.WeightTrackerActions;
-import dlgdev.weighttracker.views.checkers.WeightTrackerActivity;
-import dlgdev.weighttracker.domain.models.checkers.WeightTrackerRequirements;
 import dlgdev.weighttracker.domain.models.checkers.WeightTrackerController;
+import dlgdev.weighttracker.domain.models.checkers.WeightTrackerRequirements;
+import dlgdev.weighttracker.views.checkers.WeightTrackerActivity;
 
 @Module
 public class WeightCheckerActivityModule {

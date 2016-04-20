@@ -1,4 +1,4 @@
-package dlgdev.weighttracker.di;
+package dlgdev.weighttracker.dagger;
 
 import dagger.Component;
 import dlgdev.weighttracker.views.users.UsersActivity;
