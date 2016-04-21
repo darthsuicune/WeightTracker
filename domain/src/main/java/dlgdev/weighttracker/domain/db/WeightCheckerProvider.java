@@ -15,9 +15,11 @@ public final class WeightCheckerProvider {
 	@TableEndpoint(table = WeightCheckerDatabase.WEIGHT_ENTRIES)
 	public static class WeightEntries {
 		@ContentUri(path = WeightCheckerDatabase.WEIGHT_ENTRIES,
-				type = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/weight_entry")
-		public static final Uri WEIGHT_ENTRIES_URI =
-				Uri.parse(ContentResolver.SCHEME_CONTENT + "://" + AUTHORITY + "/" +
-						  WeightCheckerDatabase.WEIGHT_ENTRIES);
+				type = ContentResolver.CURSOR_DIR_BASE_TYPE + "/weight_entry")
+		public static final Uri WEIGHT_ENTRIES_URI = makeUri(WeightCheckerDatabase.WEIGHT_ENTRIES);
+	}
+
+	public static Uri makeUri(String table) {
+		return Uri.parse(ContentResolver.SCHEME_CONTENT + "://" + AUTHORITY + "/" + table);
 	}
 }

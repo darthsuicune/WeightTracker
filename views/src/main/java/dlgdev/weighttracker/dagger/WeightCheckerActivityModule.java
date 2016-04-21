@@ -6,9 +6,9 @@ import dagger.Module;
 import dagger.Provides;
 import dlgdev.weighttracker.domain.WeightEntryRepository;
 import dlgdev.weighttracker.domain.WeightEntryRepositoryImpl;
-import dlgdev.weighttracker.domain.models.checkers.WeightTrackerActions;
-import dlgdev.weighttracker.domain.models.checkers.WeightTrackerController;
-import dlgdev.weighttracker.domain.models.checkers.WeightTrackerRequirements;
+import dlgdev.weighttracker.domain.controllers.checkers.WeightTrackerActions;
+import dlgdev.weighttracker.domain.controllers.checkers.WeightTrackerController;
+import dlgdev.weighttracker.domain.controllers.checkers.WeightTrackerRequirements;
 import dlgdev.weighttracker.views.checkers.WeightTrackerActivity;
 
 @Module

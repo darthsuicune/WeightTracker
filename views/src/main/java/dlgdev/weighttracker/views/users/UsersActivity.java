@@ -20,8 +20,8 @@ import dlgdev.weighttracker.dagger.DaggerUsersActivityComponent;
 import dlgdev.weighttracker.dagger.NavigationControllerModule;
 import dlgdev.weighttracker.dagger.UsersActivityModule;
 import dlgdev.weighttracker.domain.models.User;
-import dlgdev.weighttracker.domain.models.users.UsersActivityActions;
-import dlgdev.weighttracker.domain.models.users.UsersActivityController;
+import dlgdev.weighttracker.domain.controllers.users.UsersActivityActions;
+import dlgdev.weighttracker.domain.controllers.users.UsersActivityController;
 
 public class UsersActivity extends AppCompatActivity implements UsersActivityActions {
 	private static final int LOADER_USERS = 1;

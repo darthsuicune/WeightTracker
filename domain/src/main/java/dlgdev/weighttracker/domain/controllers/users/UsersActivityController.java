@@ -1,4 +1,4 @@
-package dlgdev.weighttracker.domain.models.users;
+package dlgdev.weighttracker.domain.controllers.users;
 
 import java.util.List;
 

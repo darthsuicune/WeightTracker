@@ -35,8 +35,8 @@ import dlgdev.weighttracker.dagger.NavigationControllerModule;
 import dlgdev.weighttracker.dagger.WeightCheckerActivityComponent;
 import dlgdev.weighttracker.dagger.WeightCheckerActivityModule;
 import dlgdev.weighttracker.domain.db.WeightCheckerProvider;
-import dlgdev.weighttracker.domain.models.checkers.WeightTrackerActions;
-import dlgdev.weighttracker.domain.models.checkers.WeightTrackerRequirements;
+import dlgdev.weighttracker.domain.controllers.checkers.WeightTrackerActions;
+import dlgdev.weighttracker.domain.controllers.checkers.WeightTrackerRequirements;
 import dlgdev.weighttracker.views.entry.NewWeightEntryDialog;
 import dlgdev.weighttracker.views.entry.WeightEntryAdapter;
 
@@ -108,7 +108,6 @@ public class WeightTrackerActivity extends AppCompatActivity
 	}
 
 	@Override public boolean onNavigationItemSelected(MenuItem item) {
-		// Handle navigation view item clicks here.
 		switch (item.getItemId()) {
 			case R.id.nav_share:
 			default:

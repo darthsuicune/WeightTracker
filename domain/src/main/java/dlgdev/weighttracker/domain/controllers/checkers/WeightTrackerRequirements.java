@@ -1,4 +1,4 @@
-package dlgdev.weighttracker.domain.models.checkers;
+package dlgdev.weighttracker.domain.controllers.checkers;
 
 import android.database.Cursor;
 
