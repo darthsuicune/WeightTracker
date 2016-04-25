@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import dlgdev.weighttracker.domain.NavigationController;
 import dlgdev.weighttracker.domain.models.User;
+import dlgdev.weighttracker.domain.models.WeightEntry;
 import dlgdev.weighttracker.views.checkers.WeightTrackerActivity;
 import dlgdev.weighttracker.views.entry.NewWeightEntryDialog;
 
@@ -23,8 +24,8 @@ public class AppNavigation implements NavigationController {
 		activity.startActivity(new Intent(activity, WeightTrackerActivity.class));
 	}
 
-	@Override public void requestEntryData(double lastValue) {
-		DialogFragment fragment = NewWeightEntryDialog.newInstance(lastValue);
+	@Override public void requestEntryData(WeightEntry lastValue) {
+		DialogFragment fragment = NewWeightEntryDialog.newInstance(lastValue.weight);
 		fragment.show(activity.getSupportFragmentManager(), TAG_NEW_WEIGHT_DIALOG);
 	}
 }

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".views.users.UsersActivity"
+            android:name=".views.users.UserMainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,11 +23,11 @@
         <activity
             android:name=".views.checkers.WeightTrackerActivity"
             android:label="@string/title_activity_weight_checker"
-            android:parentActivityName=".views.users.UsersActivity"
+            android:parentActivityName=".views.users.UserMainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="dlgdev.weighttracker.views.users.UsersActivity" />
+                android:value=".views.users.UserMainActivity" />
         </activity>
     </application>
 

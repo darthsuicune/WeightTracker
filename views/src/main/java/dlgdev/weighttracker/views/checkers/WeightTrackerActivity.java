@@ -32,6 +32,7 @@ import dlgdev.weighttracker.R;
 import dlgdev.weighttracker.dagger.DaggerWeightCheckerActivityComponent;
 import dlgdev.weighttracker.dagger.DateFormatModule;
 import dlgdev.weighttracker.dagger.NavigationControllerModule;
+import dlgdev.weighttracker.dagger.RepositoriesModule;
 import dlgdev.weighttracker.dagger.WeightCheckerActivityComponent;
 import dlgdev.weighttracker.dagger.WeightCheckerActivityModule;
 import dlgdev.weighttracker.domain.db.WeightCheckerProvider;
@@ -63,6 +64,7 @@ public class WeightTrackerActivity extends AppCompatActivity
 				.weightCheckerActivityModule(new WeightCheckerActivityModule(this))
 				.navigationControllerModule(new NavigationControllerModule(this))
 				.dateFormatModule(new DateFormatModule(this))
+				.repositoriesModule(new RepositoriesModule(this))
 				.build();
 		component.inject(this);
 		setContentView(R.layout.activity_weight_checker);

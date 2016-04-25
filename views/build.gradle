@@ -38,6 +38,7 @@ dependencies {
     provided deps.javaxAnnotation
     compile deps.dagger
     compile deps.design
+    compile deps.cardView
     compile deps.recyclerView
     compile deps.butterKnife
     compile deps.annotations

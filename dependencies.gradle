@@ -13,6 +13,7 @@ ext {
             schematic: "net.simonvt.schematic:schematic:${schematicVersion}",
             dagger: "com.google.dagger:dagger:${daggerVersion}",
             design: "com.android.support:design:${supportLibraryVersion}",
+            cardView: "com.android.support:cardview-v7:${supportLibraryVersion}",
             appCompat: "com.android.support:appcompat-v7:${supportLibraryVersion}",
             annotations: "com.android.support:support-annotations:${supportLibraryVersion}",
             recyclerView: "com.android.support:recyclerview-v7:${supportLibraryVersion}",

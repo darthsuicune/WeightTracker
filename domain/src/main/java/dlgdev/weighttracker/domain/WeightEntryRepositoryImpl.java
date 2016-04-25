@@ -2,15 +2,20 @@ package dlgdev.weighttracker.domain;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dlgdev.weighttracker.domain.db.WeightCheckerDatabase;
 import dlgdev.weighttracker.domain.db.WeightCheckerProvider;
+import dlgdev.weighttracker.domain.models.WeightEntry;
 
 public class WeightEntryRepositoryImpl implements WeightEntryRepository {
 
@@ -24,8 +29,25 @@ public class WeightEntryRepositoryImpl implements WeightEntryRepository {
 		new InsertEntryTask(date, weight).execute();
 	}
 
-	@Override public double getLast() {
-		return 0.0;
+	@Override public WeightEntry getLast() {
+		Cursor data =
+				resolver.query(WeightCheckerProvider.WeightEntries.WEIGHT_ENTRIES_URI, null, null,
+						null, WeightCheckerDatabase.WeightEntryColumns.DATE + " DESC");
+		if(data != null && data.moveToFirst()) {
+			return new WeightEntry(data);
+		} else {
+			throw new RuntimeException("Failed to find the last entry");
+		}
+	}
+
+	@Override public List<WeightEntry> loadEntries(Cursor data) {
+		List<WeightEntry> entries = new ArrayList<>();
+		if (data.moveToFirst()) {
+			do {
+				entries.add(new WeightEntry(data));
+			} while (data.moveToNext());
+		}
+		return entries;
 	}
 
 	private class InsertEntryTask extends AsyncTask<Void, Void, Void> {
