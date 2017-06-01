@@ -1,9 +1,9 @@
 ext {
     //Runtime
-    supportLibraryVersion = "23.3.0"
-    daggerVersion = "2.2"
+    supportLibraryVersion = "25.3.0"
+    daggerVersion = "2.11-rc2"
     javaxAnnotationVersion = '1.0'
-    butterKnifeVersion = "7.0.1"
+    butterKnifeVersion = "8.5.1"
     jodaTimeVersion = "2.3"
     schematicVersion = "0.6.4"
 

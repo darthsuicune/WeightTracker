@@ -1,25 +1,72 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: 'dependencies.gradle'
 buildscript {
+    ext.kotlin_version = '1.1.2-3'
+    ext.gradle_plugin_version = "3.0.0-alpha2"
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-rc1'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-
-        // the latest version of the android-apt plugin
-        classpath "com.neenbedankt.gradle.plugins:android-apt:1.8"
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+}
+
+ext {
+    //Compiler/Annotation Processor
+    def butterknife_version = "8.5.1"
+    def dagger_version = "2.11-rc2"
+    def architecture_version = "1.0.0-alpha1"
+    def schematicVersion = "0.6.4"
+    compilerDeps = [
+            butterknife_compiler: "com.jakewharton:butterknife-compiler:${butterknife_version}",
+            schematic_compiler   : "net.simonvt.schematic:schematic-compiler:${schematicVersion}",
+            dagger_processor    : "com.google.dagger:dagger-android-processor:${dagger_version}",
+            dagger_compiler     : "com.google.dagger:dagger-compiler:${dagger_version}",
+
+            lifecycle_compiler  : "android.arch.lifecycle:compiler:${architecture_version}",
+            room_compiler       : "android.arch.persistence.room:compiler:${architecture_version}"
+
+    ]
+
+    //Runtime
+    def support_library_version = "25.3.1"
+    def constraint_layout_version = "1.0.2"
+    def gson_version = "2.8.0"
+    def jodaTimeVersion = "2.3"
+    runtimeDeps = [
+            butterknife         : "com.jakewharton:butterknife:${butterknife_version}",
+            schematic           : "net.simonvt.schematic:schematic:${schematicVersion}",
+            jodaTime            : "joda-time:joda-time:${jodaTimeVersion}",
+            gson                : "com.google.code.gson:gson:${gson_version}",
+            dagger              : "com.google.dagger:dagger-android-support:${dagger_version}",
+            appcompat           : "com.android.support:appcompat-v7:${support_library_version}",
+            constraint_layout   : "com.android.support.constraint:constraint-layout:${constraint_layout_version}",
+            kotlin_stdlib       : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
+            recycler_view       : "com.android.support:design:${support_library_version}",
+
+            lifecycle           : "android.arch.lifecycle:runtime:${architecture_version}",
+            lifecycle_extensions: "android.arch.lifecycle:extensions:${architecture_version}",
+            room                : "android.arch.persistence.room:runtime:${architecture_version}"
+    ]
+
+    //Test
+    def junit_version = "4.12"
+    def mockito_version = "2.8.8"
+    def espresso_version = "2.2.2"
+
+    testDeps = [
+            junit        : "junit:junit:${junit_version}",
+            mockito      : "org.mockito:mockito-android:${mockito_version}",
+            mockito_core : "org.mockito:mockito-core:${mockito_version}",
+            espresso_core: "com.android.support.test.espresso:espresso-core:${espresso_version}"
+    ]
 }
 
 allprojects {
     repositories {
         jcenter()
-        mavenCentral()
+        maven { url 'https://maven.google.com' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-
     }
 }
 
