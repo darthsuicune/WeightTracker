@@ -34,23 +34,19 @@ android {
 }
 
 dependencies {
+    kapt compilerDeps.dagger_compiler
+    kapt compilerDeps.butterknife_compiler
+
     compile project(':domain')
-    def deps = rootProject.ext.runtime
-    def testDeps = rootProject.ext.test
-    kapt deps.dagger_compiler
+    compile runtimeDeps.dagger
+    compile runtimeDeps.design
+    compile runtimeDeps.butterknife
+    compile runtimeDeps.kotlin_stdlib
+    compile runtimeDeps.card_view
 
-    compile deps.dagger
-    compile deps.design
-    compile deps.cardView
-    compile deps.recyclerView
-    compile deps.butterKnife
-    compile deps.annotations
-
-    androidTestCompile testDeps.annotations
-    androidTestCompile testDeps.dexmakerMockito
-    androidTestCompile testDeps.dexmakerDx
-    androidTestCompile testDeps.espressoIntents
-    androidTestCompile(testDeps.espressoContrib) {
+    androidTestCompile testDeps.mockito_android
+    androidTestCompile testDeps.espresso_intents
+    androidTestCompile(testDeps.espresso_contrib) {
         exclude group: "com.android.support", module: "appcompat-v7"
         exclude group: "com.android.support", module: "support-v4"
         exclude group: "com.android.support", module: "design"

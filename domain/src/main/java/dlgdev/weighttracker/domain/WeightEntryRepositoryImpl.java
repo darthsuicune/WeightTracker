@@ -30,14 +30,18 @@ public class WeightEntryRepositoryImpl implements WeightEntryRepository {
 	}
 
 	@Override public WeightEntry getLast() {
-		Cursor data =
-				resolver.query(WeightCheckerProvider.WeightEntries.WEIGHT_ENTRIES_URI, null, null,
-						null, WeightCheckerDatabase.WeightEntryColumns.DATE + " DESC");
+		Cursor data = findLast();
 		if(data != null && data.moveToFirst()) {
 			return new WeightEntry(data);
 		} else {
 			throw new RuntimeException("Failed to find the last entry");
 		}
+	}
+
+	private Cursor findLast() {
+		return resolver.query(WeightCheckerProvider.WeightEntries.WEIGHT_ENTRIES_URI, null, null,
+						null, WeightCheckerDatabase.WeightEntryColumns.DATE + " DESC");
+
 	}
 
 	@Override public List<WeightEntry> loadEntries(Cursor data) {
@@ -48,6 +52,16 @@ public class WeightEntryRepositoryImpl implements WeightEntryRepository {
 			} while (data.moveToNext());
 		}
 		return entries;
+	}
+
+	@Override public WeightEntry getLastOrNew() {
+		Cursor data = findLast();
+		if (data == null || data.getCount() == 0) {
+			return new WeightEntry();
+		} else {
+			data.moveToFirst();
+			return new WeightEntry(data);
+		}
 	}
 
 	private class InsertEntryTask extends AsyncTask<Void, Void, Void> {

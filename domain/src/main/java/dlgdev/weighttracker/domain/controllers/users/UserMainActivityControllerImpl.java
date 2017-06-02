@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import dlgdev.weighttracker.domain.MathUtils;
 import dlgdev.weighttracker.domain.NavigationController;
 import dlgdev.weighttracker.domain.WeightEntryRepository;
+import dlgdev.weighttracker.domain.models.User;
 import dlgdev.weighttracker.domain.models.UserDataCardInterface;
 import dlgdev.weighttracker.domain.models.WeightEntry;
 
@@ -17,13 +18,16 @@ public class UserMainActivityControllerImpl implements UserMainActivityControlle
 	NavigationController navigation;
 	WeightEntryRepository repository;
 	UserDataCardPresenter presenter;
+	User user;
 
-	@Inject UserMainActivityControllerImpl(NavigationController navigation,
+	@Inject public UserMainActivityControllerImpl(NavigationController navigation,
 										   WeightEntryRepository repository,
-										   UserDataCardPresenter presenter) {
+										   UserDataCardPresenter presenter,
+												  User user) {
 		this.navigation = navigation;
 		this.repository = repository;
 		this.presenter = presenter;
+		this.user = user;
 	}
 
 	@Override public void displayData(Cursor data, UserDataCardInterface dataCard) {
@@ -34,5 +38,9 @@ public class UserMainActivityControllerImpl implements UserMainActivityControlle
 		}
 		presenter.setDataCard(dataCard);
 		this.presenter.showAverage(MathUtils.average(values));
+	}
+
+	@Override public void addNewEntries() {
+		navigation.navigateToUserStats(user);
 	}
 }

@@ -23,12 +23,13 @@ android {
 }
 
 dependencies {
-    kapt compilerDeps.dagger_compiler
     kapt compilerDeps.schematic_compiler
+
     compile runtimeDeps.dagger
     compile runtimeDeps.schematic
     compile runtimeDeps.jodaTime
+    compile runtimeDeps.kotlin_stdlib
 
     testCompile testDeps.junit
-    testCompile testDeps.mockito
+    testCompile testDeps.mockito_core
 }

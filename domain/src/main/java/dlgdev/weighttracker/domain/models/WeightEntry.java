@@ -10,6 +10,8 @@ public class WeightEntry {
 	public DateTime date;
 	public double weight;
 
+	public WeightEntry() {}
+
 	public WeightEntry(DateTime date, double weight) {
 		this.date = date;
 		this.weight = weight;

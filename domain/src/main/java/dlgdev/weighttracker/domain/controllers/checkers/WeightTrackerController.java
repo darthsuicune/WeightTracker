@@ -25,7 +25,7 @@ public class WeightTrackerController implements WeightTrackerRequirements {
 	}
 
 	@Override public void requestNewEntry() {
-		navigation.requestEntryData(repository.getLast());
+		navigation.requestEntryData(repository.getLastOrNew());
 	}
 
 	@Override public void loadEntries(Cursor data) {

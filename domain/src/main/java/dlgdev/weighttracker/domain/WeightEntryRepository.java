@@ -14,4 +14,6 @@ public interface WeightEntryRepository {
 	WeightEntry getLast();
 
 	List<WeightEntry> loadEntries(Cursor data);
+
+	WeightEntry getLastOrNew();
 }
